@@ -22,6 +22,7 @@ function Enter() {
 	const router = useRouter();
 	const [user, setUser] = useState();
 	const [input, setInput] = useState('');
+	const [bg, setBG] = useState('bg-gray-500');
 
 	useEffect(() => {
 		onAuthStateChanged(authentication, (user) => {
@@ -48,6 +49,12 @@ function Enter() {
 		setInput('');
 		router.push('/Home');
 	};
+
+	const incompleteForm = !input;
+	// if (!input) {
+	// 	setBG('bg-red-500');
+	// }
+
 	return (
 		<div>
 			<div className="flex justify-evenly">
@@ -72,7 +79,13 @@ function Enter() {
 						type="text"
 						onChange={(e) => setInput(e.target.value)}
 					/>
-					<button onClick={submit}>Update Profile</button>
+					<button
+						className={incompleteForm ? 'bg-gray-500' : 'bg-red-500'}
+						disabled={incompleteForm}
+						onClick={submit}
+					>
+						Update Profile
+					</button>
 				</form>
 			</div>
 		</div>
