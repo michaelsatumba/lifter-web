@@ -18,7 +18,6 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import logo from '../public/LifterLogo2.png';
 import TinderCards from '../components/TinderCards';
-import SwipeButtons from '../components/SwipeButtons';
 
 function Home() {
 	const router = useRouter();
@@ -55,23 +54,6 @@ function Home() {
 			}
 		});
 	}, []);
-
-	// getDoc(doc(db, 'users', user.uid)).then((docSnap) => {
-	// 	if (docSnap.exists()) {
-	// 		console.log('Document data:', docSnap.data());
-	// 	} else {
-	// 		console.log('No such document!');
-	// 	}
-	// });
-
-	// useLayoutEffect(
-	// 	onSnapshot(q, (snapshot) => {
-	// 		if (!snapshot.exists()) {
-	// 			router.push('/Enter');
-	// 		}
-	// 	}),
-	// 	[]
-	// );
 
 	const logout = () => {
 		signOut(authentication)
@@ -128,7 +110,7 @@ function Home() {
 				</div>
 			</div>
 
-			<TinderCards />
+			<TinderCards userUid={user?.uid} />
 		</div>
 	);
 }
