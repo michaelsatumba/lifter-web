@@ -22,7 +22,6 @@ function Enter() {
 	const router = useRouter();
 	const [user, setUser] = useState();
 	const [input, setInput] = useState('');
-	const [bg, setBG] = useState('bg-gray-500');
 
 	useEffect(() => {
 		onAuthStateChanged(authentication, (user) => {
@@ -51,9 +50,6 @@ function Enter() {
 	};
 
 	const incompleteForm = !input;
-	// if (!input) {
-	// 	setBG('bg-red-500');
-	// }
 
 	return (
 		<div>

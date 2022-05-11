@@ -11,7 +11,7 @@ export default function Home() {
 		const provider = new GoogleAuthProvider();
 		signInWithPopup(authentication, provider)
 			.then((result) => {
-				router.push('/Enter');
+				router.push('/Home');
 			})
 			.catch((error) => {
 				console.log(error);
