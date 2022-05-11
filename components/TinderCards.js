@@ -45,8 +45,10 @@ function TinderCards() {
 							className=""
 						/>
 					</div>
-
-					<p>{person.displayName}</p>
+					<div className="p-5 flex flex-col">
+						<p>{person.displayName}</p>
+						<p>{person.interests}</p>
+					</div>
 				</TinderCard>
 			))}
 			<SwipeButtons />

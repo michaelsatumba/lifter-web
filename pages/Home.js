@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { authentication, db } from '../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {
@@ -11,6 +11,8 @@ import {
 	orderBy,
 	onSnapshot,
 	query,
+	exists,
+	getDoc,
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -28,7 +30,7 @@ function Home() {
 		onAuthStateChanged(authentication, (user) => {
 			if (user) {
 				console.log('signed in');
-				console.log(user.photoURL);
+				console.log(user);
 				setUser(user);
 				setPicture(
 					<Image
@@ -38,14 +40,38 @@ function Home() {
 						className="rounded-full"
 					/>
 				);
+				if (user) {
+					getDoc(doc(db, 'users', user.uid)).then((docSnap) => {
+						if (docSnap.exists()) {
+							console.log('works!');
+						} else {
+							router.push('/Enter');
+						}
+					});
+				}
 			} else {
-				// User is signed out
-				// ...
 				console.log('not signed in');
 				router.push('/');
 			}
 		});
 	}, []);
+
+	// getDoc(doc(db, 'users', user.uid)).then((docSnap) => {
+	// 	if (docSnap.exists()) {
+	// 		console.log('Document data:', docSnap.data());
+	// 	} else {
+	// 		console.log('No such document!');
+	// 	}
+	// });
+
+	// useLayoutEffect(
+	// 	onSnapshot(q, (snapshot) => {
+	// 		if (!snapshot.exists()) {
+	// 			router.push('/Enter');
+	// 		}
+	// 	}),
+	// 	[]
+	// );
 
 	const logout = () => {
 		signOut(authentication)
@@ -61,20 +87,27 @@ function Home() {
 	const goToChat = () => {
 		router.push('/Chat');
 	};
+
+	const goToEnter = () => {
+		router.push('/Enter');
+	};
 	return (
 		<div>
 			<div className="flex justify-evenly">
 				<button onClick={logout}>
 					<div className="h-10 w-10 relative">{picture}</div>
 				</button>
-				<div className="h-14 w-14 relative">
-					<Image
-						src={logo}
-						alt="userPhoto"
-						layout="fill"
-						className="rounded-full"
-					/>
-				</div>
+				<button onClick={goToEnter}>
+					<div className="h-14 w-14 relative">
+						<Image
+							src={logo}
+							alt="userPhoto"
+							layout="fill"
+							className="rounded-full"
+						/>
+					</div>
+				</button>
+
 				<div>
 					<button onClick={goToChat}>
 						<svg
