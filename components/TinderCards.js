@@ -33,14 +33,16 @@ function TinderCards(props) {
 		fetchCards();
 		return unsub;
 	}, [db]);
-	console.log(people);
 
-	const onSwipe = (direction) => {
-		console.log('You swiped: ' + direction);
-	};
-
-	const onCardLeftScreen = (myIdentifier) => {
-		console.log(myIdentifier + ' left the screen');
+	const onSwipe = (direction, cardIndex) => {
+		if (direction == 'left') {
+			// console.log('You swiped: ' + 'left');
+			if (!people[cardIndex]) return;
+			const userSwiped = people[cardIndex];
+			console.log(`You swiped left on ${userSwiped.displayName}`);
+		} else {
+			console.log('You swiped: ' + 'right');
+		}
 	};
 
 	return (
