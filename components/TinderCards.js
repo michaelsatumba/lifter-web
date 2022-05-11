@@ -34,13 +34,10 @@ function TinderCards(props) {
 		return unsub;
 	}, [db]);
 
-	const onSwipe = (direction, cardIndex) => {
+	const onMatch = (direction) => {
 		if (direction == 'left') {
-			// console.log('You swiped: ' + 'left');
-			if (!people[cardIndex]) return;
-			const userSwiped = people[cardIndex];
-			console.log(`You swiped left on ${userSwiped.displayName}`);
-		} else {
+			console.log('You swiped: ' + 'left');
+		} else if (direction == 'right') {
 			console.log('You swiped: ' + 'right');
 		}
 	};
@@ -53,7 +50,7 @@ function TinderCards(props) {
 							className="swipe absolute bg-red-500 rounded-lg p-5 m-5 w-4/5 h-auto flex"
 							key={person.displayName}
 							preventSwipe={['up', 'down']}
-							onSwipe={onSwipe}
+							onSwipe={onMatch}
 						>
 							<div className="h-24 w-24 relative">
 								<Image

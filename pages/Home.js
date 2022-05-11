@@ -28,8 +28,8 @@ function Home() {
 	useEffect(() => {
 		onAuthStateChanged(authentication, (user) => {
 			if (user) {
-				console.log('signed in');
-				console.log(user);
+				// console.log('signed in');
+				// console.log(user);
 				setUser(user);
 				setPicture(
 					<Image
